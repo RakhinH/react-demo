@@ -1,46 +1,26 @@
 import BlogPreview from "./components/BlogPreview";
 import NavBar from "./components/Navbar";
 import { useState, useEffect } from "react";
+import useFetch from "./hooks/useFetch";
 
 const App = () => {
 
-  
-
-  // useState
-  const [title, setTitle] = useState("Hello");
-
-  const [lessons, setLessons] = useState([
-    {title: "Intro to React", author: "Joel", id: 1},
-    {title: "Frontend Dev", author: "Joel", id: 2},
-    {title: "Figma Tutorial", author: "Joel", id: 3},
-    {title: "Flask", author: "Joe", id: 4},
-    {title: "Industry Concepts", author: "Brad", id: 5},
-  ]);
-
-  const handleDelete = (id) => {
-    const newLessons = lessons.filter((l) => l.id !== id);
-    setLessons(newLessons);
-  }
-
-  useEffect(() => {
-    console.log("refreshed");
-  }, [title]);
+  const {data, isPending, isError} = useFetch("https://dummyjson.com/posts");
   
 
   return ( 
     <div className="bg-slate-500">
       <NavBar />
-      <div className="content">
-        <h1 className="text-5xl">{title}</h1>
+      <div className="content p-2">
 
-        <button onClick={() => setTitle("Bonjour")}>Change title</button>
+        {isPending && <p>Loading...</p>}
 
-        {
-          lessons.map((l) => (
-            <BlogPreview lesson={l} key={l.id} handleDelete={handleDelete} />
+        {data && data.posts.map((p) => (
+            <BlogPreview lesson={p} key={p.id} />
           ))
         }
 
+        {isError && <p>Soemthing went wrong</p>}
 
       </div>
     </div>
