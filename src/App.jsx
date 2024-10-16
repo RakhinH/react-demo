@@ -13,7 +13,14 @@ const App = () => {
       <NavBar />
       <div className="content p-2">
 
-        {isPending && <p>Loading...</p>}
+        {isPending && (
+          <div className="flex">
+            <p>Loading</p>
+            <p className="animate-bounce-1">.</p>
+            <p className="animate-bounce-2">.</p>
+            <p className="animate-bounce-3">.</p>
+          </div>
+        )}
 
         {data && data.posts.map((p) => (
             <BlogPreview lesson={p} key={p.id} />
