@@ -1,36 +1,32 @@
-import BlogPreview from "./components/BlogPreview";
 import NavBar from "./components/Navbar";
 import { useState, useEffect } from "react";
 import useFetch from "./hooks/useFetch";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import BlogDetails from "./BlogDetails";
+import Home from "./home";
+import About from "./About";
 
 const App = () => {
 
-  const {data, isPending, isError} = useFetch("https://dummyjson.com/posts");
+  
   
 
   return ( 
-    <div className="bg-slate-500">
-      <NavBar />
-      <div className="content p-2">
-
-        {isPending && (
-          <div className="flex">
-            <p>Loading</p>
-            <p className="animate-bounce-1">.</p>
-            <p className="animate-bounce-2">.</p>
-            <p className="animate-bounce-3">.</p>
-          </div>
-        )}
-
-        {data && data.posts.map((p) => (
-            <BlogPreview lesson={p} key={p.id} />
-          ))
-        }
-
-        {isError && <p>Soemthing went wrong</p>}
-
+    <BrowserRouter>
+      <div className="bg-slate-500">
+        <NavBar />
+        <Routes>
+          {/* Home Route */}
+          <Route path="/" element={<Home />} />
+          {/* About Route */}
+          <Route path="/about" element={<About />} />
+          {/* Blog Details Route */}
+          <Route path="/blog/:id" element={<BlogDetails/>}/>
+          <Route path="*" element={<h1>Error! Page Not Found</h1>} />
+        </Routes>
+        
       </div>
-    </div>
+    </BrowserRouter>
    );
 }
  
