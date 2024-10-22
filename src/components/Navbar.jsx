@@ -1,6 +1,7 @@
 import './NavBar.css'
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import { Link } from 'react-router-dom';
 
 
 const NavBar = () => {
@@ -9,17 +10,12 @@ const NavBar = () => {
 
     return ( 
     <>
-    <h1>{title}</h1>
-      <br />
       <Navbar className="bg-body-tertiary">
-        <Container>
-          <Navbar.Brand href="src\Home.jsx">Home</Navbar.Brand>
-        </Container>
-      </Navbar>
-      <br />
-      <Navbar className="bg-body-tertiary">
-        <Container>
-          <Navbar.Brand href="src\components\login.jsx">Log in</Navbar.Brand>
+        <Container className='flex gap-4'>
+          <h1 className='grow'>{title}</h1>
+          <Link to={"/"}>Home</Link>
+          <Link to={"/login"}>Login</Link>
+          <Link to={"/register"}>Register</Link>
         </Container>
       </Navbar>
     </>
