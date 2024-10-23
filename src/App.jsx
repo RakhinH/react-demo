@@ -7,16 +7,17 @@ import Home from "./home";
 import About from "./About";
 
 // importing the relevant pages and data from other files
-import Login from "./components/login";
+import Login from "./components/Login";
 import Register from "./components/Register";
 
 
 const App = () => {
 
-  const user = {
+  const [user, setUser] = useState({
     id: 12345,
-    email: "test@test.com"
-  }
+    email: "test@test.com",
+    password: "test"
+  })
   
 
   return ( 
@@ -32,7 +33,7 @@ const App = () => {
           <Route path="/blog/:id" element={<BlogDetails/>}/>
 
           {/* Login Route */}
-          <Route path="/login" element={<Login id={user.id} email={user.email} />} />
+          <Route path="/login" element={<Login id={user.id} email={user.email} password={user.password}/>} />
           {/* Register Route */}
           <Route path="/register" element={<Register/>} />
 
