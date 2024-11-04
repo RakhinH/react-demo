@@ -1,9 +1,9 @@
 import BlogPreview from "./components/BlogPreview";
 import useFetch from "./hooks/useFetch";
 
-const Home = () => { 
+const Home = ({data, isError, isPending, handleDelete}) => { 
 
-    const {data, isPending, isError} = useFetch("https://dummyjson.com/posts");
+    
 
     return ( 
         <div className="content p-2">
@@ -17,8 +17,8 @@ const Home = () => {
             </div>
             )}
 
-            {data && data.posts.map((p) => (
-                <BlogPreview lesson={p} key={p.id} />
+            {data && data.map((p) => (
+                <BlogPreview lesson={p} key={p.id} handleDelete={handleDelete}/>
             ))
             }
 
