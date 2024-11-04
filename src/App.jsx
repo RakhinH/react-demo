@@ -20,10 +20,10 @@ const BlogReducer = (state, action) => {
       return action.payload;
 
     case "CREATE": // Create new blog
-      return {...state, user: null};
+      state.push(action.payload);
 
     case "DELETE": // Delete a blog
-      let filteredBlogs=state.filter(b => b.id!== action.payload);
+      let filteredBlogs=state.filter(b => b.id != action.id);
       return filteredBlogs; 
     default:
       return state;
@@ -47,7 +47,13 @@ const App = () => {
 
 function deleteBlog(blogid) {
   dispatch({type: "DELETE",  id:blogid});
+  console.log("delete");
 }
+
+function createBlog(newBlog) {
+  dispatch({type: "CREATE", payload: newBlog});
+}
+
 
   const [user, setUser] = useState({
     id: 12345,
@@ -68,7 +74,7 @@ function deleteBlog(blogid) {
           {/* Blog Details Route */}
           <Route path="/blog/:id" element={<BlogDetails/>}/>
           {/* Create Route */}
-          <Route path="/create" element={<Create/>} />
+          <Route path="/create" element={<Create handleCreate={createBlog} />} />
           {/* Login Route */}
           <Route path="/login" element={<Login id={user.id} email={user.email} password={user.password}/>} />
           {/* Register Route */}

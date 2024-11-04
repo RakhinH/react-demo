@@ -1,14 +1,22 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 
-const Create = () => {
+const Create = ({handleCreate}) => {
 
     const[title, setTitle] = useState("")
     const[bodyText, setBodyText] = useState("")
 
+    const navigate = useNavigate()
+
     function handleSubmit(e) {
         e.preventDefault()
-        // TODO Create blog
+        handleCreate({
+            id: uuid(),
+            title: title,
+            body: bodyT
+        });
+        navigate("/")
     }
 
     return ( 
@@ -20,9 +28,9 @@ const Create = () => {
             <input type="text" onChange={(e) => setTitle(e.target.value)}/>
 
             <label htmlFor="">Body Text</label>
-            <textare name="" id=""></textare>
+            <textarea name="" id=""></textarea>
             
-            <button type="submit">Create Blog</button>
+            <button type="submit" onClick={handleSubmit}>Create Blog</button>
         </form>
         </>
      );
